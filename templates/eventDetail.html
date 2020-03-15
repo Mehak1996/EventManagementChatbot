@@ -1,0 +1,40 @@
+{% load static %}
+<html lang="en">
+<title>{{ event.name }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href="{% static 'css/eventDetail.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+<!-- Header -->
+<header class="nameHeader" >
+  <h1> {{ event.name }}</h1>
+</header>
+<table>
+<tr>
+<td>
+<img src={{ event.image.url }} alt="Avatar" style="width:500px;height:400px;">
+</td>
+<td valign="top" style="padding-top:40px"> 
+<p> Event type : {{ event.eventType}} </p>
+<p>{{ event.description}}</p>
+<p ><i class="fas fa-calendar"></i> {{ event.date }},{{ event.time }} at {{ event.address}},{{ event.city}} </p>
+{% if request.user.is_superuser %}
+<button class="editButton" style="vertical-align:middle;" onclick="location.href='{% url 'editEvent' event.id %}';">Edit  <i class="fas fa-edit"></i></button>
+<button class="deleteButton" style="vertical-align:middle;" onclick="location.href='{% url 'deleteEvent' event.id %}';">Delete <i class="fas fa-trash"></i></button>     
+{% else %}
+{% if registered %}
+<p class="greenmessage" style="vertical-align:middle;" >Already Registered  </p>
+{% else%}
+<button class="deleteButton" onclick="location.href='{% url 'registerEvent' event.id %}';" style="vertical-align:middle;">Register <i class="fas fa-check-square"></i></button>
+{% endif %}
+{% endif %}
+</td>
+</tr>
+</table>
+</body>
+</html>
+
