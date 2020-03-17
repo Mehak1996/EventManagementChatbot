@@ -25,9 +25,6 @@ SECRET_KEY = 'qzz&@sfe%^1%4h+fph27s798%tx0a-u7$c8wo!0&q0cr-#6mj7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -140,6 +137,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'home'
+
+
+ALLOWED_HOSTS = ['*']
 
 #Rest Framework
 REST_FRAMEWORK = {
