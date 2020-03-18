@@ -16,7 +16,7 @@ class ChatbotUtility():
 		'Event_App_Chatbot',
 		#trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
 		storage_adapter='chatterbot.storage.SQLStorageAdapter',
-		database_uri='mysql://bbf2f3a7c2bdeb:394bee44@us-cdbr-iron-east-04.cleardb.net/heroku_2cd1887254d217c',
+		database_uri='mysql://root:mehak1996@localhost/EventApp',
 		logic_adapters=[
 				{
 					"import_path": "chatterbot.logic.BestMatch",
