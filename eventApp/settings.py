@@ -78,13 +78,24 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 #    }
 #}
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'EventApp',
+#         'USER': 'root',
+#         'PASSWORD': 'mehak1996',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'EventApp',
-        'USER': 'root',
-        'PASSWORD': 'mehak1996',
-        'HOST': 'localhost',
+        'NAME': 'ateh6fzkg9uvzuyp',
+        'USER': 'dv4ecq00f3sx1r4x',
+        'PASSWORD': 'f0ombksyvlr511v6',
+        'HOST': 'pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
