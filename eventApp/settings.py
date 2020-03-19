@@ -12,10 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -23,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qzz&@sfe%^1%4h+fph27s798%tx0a-u7$c8wo!0&q0cr-#6mj7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 # Application definition
 
@@ -72,13 +68,8 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
+### Settings for Test environment begin ####
+# DEBUG = True
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -89,7 +80,11 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 #         'PORT': '3306',
 #     }
 # }
+# ALLOWED_HOSTS = ['*']
 
+### Settings for test environment ends ###
+
+# For Production environment settings begin here
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -100,7 +95,11 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
+#### for production environment settings end here
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -138,10 +137,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
@@ -151,7 +154,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_REDIRECT_URL = 'home'
 
 
-ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
+
 
 #Rest Framework
 REST_FRAMEWORK = {
