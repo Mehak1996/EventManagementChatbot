@@ -18,7 +18,9 @@ import os
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'qzz&@sfe%^1%4h+fph27s798%tx0a-u7$c8wo!0&q0cr-#6mj7'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Application definition
@@ -95,6 +97,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+DEBUG = False
 ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
@@ -137,8 +140,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
