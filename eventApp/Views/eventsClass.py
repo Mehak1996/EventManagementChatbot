@@ -14,6 +14,7 @@ import copy
 class EventOperations():
 
     chatUtility = ChatbotUtility()
+    chatUtility.train_chatbot_with_greetings()
 
     def list_all_events(self,request):
 

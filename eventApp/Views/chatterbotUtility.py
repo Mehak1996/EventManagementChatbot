@@ -8,15 +8,16 @@ from django.views.decorators.csrf import csrf_exempt
 from eventApp.Views import dialog
 from chatterbot.conversation import Statement
 from chatterbot.conversation import Response
+from configparser import ConfigParser
 import datetime
 
 class ChatbotUtility():
 
 	chatbot = ChatBot(
 		'Event_App_Chatbot',
-		#trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
 		storage_adapter='chatterbot.storage.SQLStorageAdapter',
 		database_uri='mysql://dv4ecq00f3sx1r4x:f0ombksyvlr511v6@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ateh6fzkg9uvzuyp',
+		# database_uri='mysql://root:mehak1996@localhost/EventApp',
 		logic_adapters=[
 				{
 					"import_path": "chatterbot.logic.BestMatch",
@@ -26,7 +27,7 @@ class ChatbotUtility():
 				{
 					'import_path': 'chatterbot.logic.LowConfidenceAdapter',
 					'threshold': 0.85,
-					'default_response': 'I am sorry, I did not find answer for you request.\n This is an automated chatbot, please try with different question.'
+					'default_response': 'I am sorry, I did not find answer for your request. This is an automated chatbot, please type \"help\" for more information. '
 				},
 			],
 	)
@@ -35,8 +36,12 @@ class ChatbotUtility():
 	chatbot.read_only = True
 
 	dialogObj = dialog.Dialogs()
-	dialogsQues = dialogObj.get_dialog_data('ques')
-	dialogResp = dialogObj.get_dialog_data('ans')
+	dialogsQues = dialogObj.get_dialog_data('EventSpecificDialogQues')
+	dialogResp = dialogObj.get_dialog_data('EventSpecificDialogAns')
+	dialogGeneralQues = dialogObj.get_dialog_data('GeneralDialogQues')
+	dialogGeneralResp = dialogObj.get_dialog_data('GeneralDialogAns')
+	config_object = ConfigParser()
+	
 
 	# chatbot.storage.drop()
 	# chatbot.train('/Users/mehakluthra/Documents/EventManagementChatterbot/eventApp/custom_corpus/mehak.yml')
@@ -121,7 +126,7 @@ class ChatbotUtility():
 			self.train_chatbot_with_question_answer( quesLocationType , ansEventCity )
 
 	def create_dialog_event_description(self, name, city, address, strDate, eventTime, eventType, description):
-		ansEventDescription = 'Event Name : ' + name + '\n' +  'Location: ' + city + ' , ' + address + '\n' + 'Date: ' + strDate.strftime('%m/%d/%Y') + '\n' + 'Time: ' + eventTime + '\n' + 'Event Type: ' + eventType + '\n' + 'Description: ' + description
+		ansEventDescription = 'Event Name is ' + name + '. Location is ' + city + ', ' + address + ' .' + ' Date is ' + strDate.strftime('%m/%d/%Y') + '. ' + 'Time is ' + eventTime + '. ' + 'Event Type is ' + eventType + '. ' + 'Description is ' + description + '.'
 		
 		for key in self.dialogsQues['description']:
 			quesLocationType = self.dialogsQues['description'].get(key) + ' ' + name + ' ? '
@@ -158,11 +163,50 @@ class ChatbotUtility():
 		self.create_dialog_event_city (obj.name, obj.city)
 
 	def edit_dialog_event_description(self, oldObj, obj):
-		textOldResponse = 'Event Name : ' + oldObj.name + '\n' +  'Location: ' + oldObj.city + ' , ' + oldObj.address + '\n' + 'Date: ' + oldObj.date.strftime('%m/%d/%Y') + '\n' + 'Time: ' + self.convertTimeToStr(oldObj.time) + '\n' + 'Event Type: ' + oldObj.eventType + '\n' + 'Description: ' + oldObj.description
+		textOldResponse = 'Event Name is ' + oldObj.name + '. Location is ' + oldObj.city + ', ' + oldObj.address + ' .' + ' Date is ' + oldObj.date.strftime('%m/%d/%Y') + '. ' + 'Time is ' + self.convertTimeToStr(oldObj.time) + '. ' + 'Event Type is ' + oldObj.eventType + '. ' + 'Description is ' + oldObj.description + '.'
 		self.remove_old_response (textOldResponse)
 			
 		self.create_dialog_event_description (obj.name, obj.city, obj.address, obj.date, obj.time, obj.eventType, obj.description)
+
+	def train_chatbot_with_greetings(self):
+		self.config_object.read("config.ini")
 		
+		if not (self.config_object.has_section("TrainGreeting")):
+			{
+				self.set_config_greeting_training()
+			}
+		#Get the flag value
+		trainChatbotGreeting = self.config_object["TrainGreeting"]
+		# with open('config.ini', 'w') as conf:
+		# 	trainChatbotGreeting["flagTrain"] = "True"
+		# 	self.config_object.write(conf)
+
+		if (trainChatbotGreeting["flagTrain"] == "True"):
+			for key in self.dialogGeneralQues['greeting_1']:
+				quesLocationType = self.dialogGeneralQues['greeting_1'].get(key)
+				self.train_chatbot_with_question_answer( quesLocationType , self.dialogGeneralResp.get('greetingRes_1'))
+		
+			for key in self.dialogGeneralQues['greeting_2']:
+				quesLocationType = self.dialogGeneralQues['greeting_2'].get(key)
+				self.train_chatbot_with_question_answer( quesLocationType , self.dialogGeneralResp.get('greetingRes_2'))
+		
+			for key in self.dialogGeneralQues['greeting_3']:
+				quesLocationType = self.dialogGeneralQues['greeting_3'].get(key)
+				self.train_chatbot_with_question_answer( quesLocationType , self.dialogGeneralResp.get('greetingRes_3'))
+		
+			for key in self.dialogGeneralQues['dialogForHelp']:
+				quesLocationType = self.dialogGeneralQues['dialogForHelp'].get(key)
+				self.train_chatbot_with_question_answer( quesLocationType , self.dialogGeneralResp.get('respForHelp'))
+
+		with open('config.ini', 'w') as conf:
+			trainChatbotGreeting["flagTrain"] = "False"
+			self.config_object.write(conf)
+
+	def set_config_greeting_training(self):
+		self.config_object["TrainGreeting"] = {
+			"flagTrain": "True",
+			}
+
 	def train_chatbot_with_question_answer(self, question, answer):
 		self.chatbot.read_only = False
 		self.trainer.train([question,answer])

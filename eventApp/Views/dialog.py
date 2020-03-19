@@ -54,8 +54,51 @@ class Dialogs:
             'res' : 'City of the '
         }
     }
+    dialogStatementGeneral = {
+        'greeting_1' : {
+            'format1' : 'Hi',
+            'format2' : 'Hello', 
+            'format3' : 'Hey',
+            'format4' : 'Hi there',
+            'format5' : 'Hey there',
+        },
+        'greeting_2' : {
+            'format1' : 'Thank you',
+            'format2' : 'Thanks', 
+            'format3' : 'Thanks a bunch',
+            'format4' : 'Thanks a ton',
+            'format5' : 'Thank you so much',
+            'format6' : 'Thanks a lot'
+        },
+        'greeting_3' : {
+            'format1' : 'Nice talking to you',
+            'format2' : 'Nice to meet you',
+            'format3' : 'Nice meeting you',
+            'format4' : 'Nice to talk to you'
+        },
+        'dialogForHelp' : 
+        {
+            'format1' : 'Help please',
+            'format2' : 'Help needed',
+            'format3' : 'Help',
+            'format4' : 'I need help',
+            'format5' : 'Can you help'
+        }
+    }
+
+    dialogResponseGeneral = {
+        'greetingRes_1' : 'Hi, how can I help you today ? ',
+        'greetingRes_2' : 'You are most welcome.',
+        'greetingRes_3' : 'Same here.',
+        'respForHelp'   : 'This is event specific chatbot. Try formulating questions specific to event such as: location of eventName, details of eventName, date of eventName etc.'
+    }
+
     def get_dialog_data(self, typeRequestedData):
-        if (typeRequestedData == 'ques'):
+        if (typeRequestedData == 'EventSpecificDialogQues'):
             return self.dialogQuesData
-        else:
+        if (typeRequestedData == 'EventSpecificDialogAns'):
             return self.dialogResponseData
+        if (typeRequestedData == 'GeneralDialogQues'):
+            return self.dialogStatementGeneral
+        if (typeRequestedData == 'GeneralDialogAns'):
+            return self.dialogResponseGeneral
