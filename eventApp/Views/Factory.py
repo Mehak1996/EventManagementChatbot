@@ -1,5 +1,10 @@
 from abc import ABCMeta, abstractstaticmethod
 
+######################################################################################################################
+#           Title        : Factory Method in Python
+#           Author       : Unknown
+#           Source Url   : https://sourcemaking.com/design_patterns/factory_method/python/1           
+######################################################################################################################
 
 class Message(metaclass=ABCMeta):  
 

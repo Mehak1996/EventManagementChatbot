@@ -9,6 +9,12 @@ import re
 class Login:
     def homePage(self,request):
         return render(request,'login.html')
+
+######################################################################################################################
+#           Title        : Using the Django authentication system
+#           Author       : Unknown
+#           Source Url   : https://docs.djangoproject.com/en/3.0/topics/auth/default/#auth-web-requests            
+######################################################################################################################
         
     def login_request(self,request):
         if request.method == 'POST':

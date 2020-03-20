@@ -13,11 +13,19 @@ import datetime
 
 class ChatbotUtility():
 
+#####################################################################################################################
+#           Title        : Text Analytics Techniques
+#           Author       : Unknown
+#			Date 		 : November 24, 2018
+#           Source Url   : https://ai.intelligentonlinetools.com/ml/chatbots-examples-chatterbot/           
+######################################################################################################################
+
+
 	chatbot = ChatBot(
 		'Event_App_Chatbot',
 		storage_adapter='chatterbot.storage.SQLStorageAdapter',
-		database_uri='mysql://dv4ecq00f3sx1r4x:f0ombksyvlr511v6@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ateh6fzkg9uvzuyp',
-		# database_uri='mysql://root:mehak1996@localhost/EventApp',
+		# database_uri='mysql://dv4ecq00f3sx1r4x:f0ombksyvlr511v6@pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ateh6fzkg9uvzuyp',
+		database_uri='mysql://root:mehak1996@localhost/EventApp',
 		logic_adapters=[
 				{
 					"import_path": "chatterbot.logic.BestMatch",
@@ -45,6 +53,14 @@ class ChatbotUtility():
 
 	# chatbot.storage.drop()
 	# chatbot.train('/Users/mehakluthra/Documents/EventManagementChatterbot/eventApp/custom_corpus/mehak.yml')
+
+#####################################################################################################################		
+# 			// Title        : Implementing a Chatbot in Django
+#             // Author       : Samuel Muiruri
+# 			// Date 		: Aug 7, 2018
+# 			// Url          : https://chatbotslife.com/implementing-a-chatbot-in-django-b2fd3c1bcd2a 
+# 			// githublink   : https://github.com/sam-thecoder/django-chat/tree/master/comedy
+#####################################################################################################################
 
 	@csrf_exempt
 	def get_response(self,request):

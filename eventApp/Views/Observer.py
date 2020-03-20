@@ -5,6 +5,13 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from eventApp.Models.models import Event,UserEventRegisteration
 
+######################################################################################################################
+#           Title        : Observer in Python
+#           Author       : Unknown
+#           Source Url   : https://refactoring.guru/design-patterns/observer/python/example          
+######################################################################################################################
+
+
 class Subject(ABC):
     """
     The Subject interface declares a set of methods for managing subscribers.
