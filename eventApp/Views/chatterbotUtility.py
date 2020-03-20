@@ -56,7 +56,7 @@ class ChatbotUtility():
 
 #####################################################################################################################		
 # 			// Title        : Implementing a Chatbot in Django
-#             // Author       : Samuel Muiruri
+#           // Author       : Samuel Muiruri
 # 			// Date 		: Aug 7, 2018
 # 			// Url          : https://chatbotslife.com/implementing-a-chatbot-in-django-b2fd3c1bcd2a 
 # 			// githublink   : https://github.com/sam-thecoder/django-chat/tree/master/comedy
