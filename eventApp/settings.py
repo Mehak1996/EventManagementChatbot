@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-### Settings for Test environment begin ####
+# ### Settings for Test environment begin ####
 # DEBUG = True
 # DATABASES = {
 #     'default': {

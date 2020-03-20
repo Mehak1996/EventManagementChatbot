@@ -78,6 +78,13 @@ class Observer(ABC):
 Concrete Observers react to the updates issued by the Subject they had been attached to.
 """
 class ConcreteObserver(Observer):
-    def update(self, subject: Subject):
-        print("ConcreteObserver: Reacted to the event")
+    def update(self,subject: Subject):
+        # print("ConcreteObserver: Reacted to the event")
+        # obj = Event.objects.all()
+        # registeredObj = UserEventRegisteration.objects.all().filter(userId_id=request.user.id)
+        # registeredByUser= []
+        # for each in registeredObj:
+        #         registeredByUser.append(each.eventID_id)
+        # context = {"totalEvents": obj,"registered":registeredByUser}
+        # return render(request, 'listAllEvents.html',context)
         return redirect('listAll')
