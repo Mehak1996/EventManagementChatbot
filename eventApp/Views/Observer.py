@@ -2,15 +2,9 @@
 from abc import ABC, abstractmethod
 #from eventApp.Views.eventsClass import EventOperations
 from django.shortcuts import render, render_to_response, redirect
+from django.http import HttpRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from eventApp.Models.models import Event,UserEventRegisteration
-
-######################################################################################################################
-#           Title        : Observer in Python
-#           Author       : Unknown
-#           Source Url   : https://refactoring.guru/design-patterns/observer/python/example          
-######################################################################################################################
-
 
 class Subject(ABC):
     """
@@ -38,6 +32,10 @@ class ConcreteSubject(Subject):
     @property
     def subject_state(self):
         return self._subject_state
+    
+    @property
+    def request(self):
+        return self._request
         
     @property
     def observers(self):
@@ -48,9 +46,14 @@ class ConcreteSubject(Subject):
         self._subject_state = arg
         self.notify()
 
+    @request.setter
+    def request(self, arg):
+        self._request = arg
+
     def __init__(self):
         self._observers = []
         self._subject_state = None
+        self._request = None
         
     def attach(self, observer):
         print("Subject: Attached an observer.")
@@ -63,7 +66,7 @@ class ConcreteSubject(Subject):
     def notify(self):
         print("Subject: Notifying observers...")
         for observer in self._observers:
-            observer.update(self)
+            observer.update(self,self._request)
 
 class Observer(ABC):
     """
@@ -71,20 +74,25 @@ class Observer(ABC):
     """
 
     @abstractmethod
-    def update(self, subject: Subject):
+    def update(self,subject: Subject,request):
         pass
 
 """
 Concrete Observers react to the updates issued by the Subject they had been attached to.
 """
-class ConcreteObserver(Observer):
-    def update(self,subject: Subject):
-        # print("ConcreteObserver: Reacted to the event")
-        # obj = Event.objects.all()
-        # registeredObj = UserEventRegisteration.objects.all().filter(userId_id=request.user.id)
-        # registeredByUser= []
-        # for each in registeredObj:
-        #         registeredByUser.append(each.eventID_id)
-        # context = {"totalEvents": obj,"registered":registeredByUser}
-        # return render(request, 'listAllEvents.html',context)
-        return redirect('listAll')
+class checkForRegisterObserver(Observer):
+    def update(self,subject: Subject,request):
+        print("ConcreteObserver: Reacted to the event")
+        #Fetching list of events from the backnend
+        obj = Event.objects.all()
+        #Fetching list of redistered events from the backnend for the user who is logged in
+        registeredObj = UserEventRegisteration.objects.all().filter(userId_id=request.user.id)
+        registeredByUser= []
+        #Reformuling data received from backend into an array 
+        for each in registeredObj:
+                registeredByUser.append(each.eventID_id)
+        #Passing data of all the events and registered events into context variable 
+        context = {"totalEvents": obj,"registered":registeredByUser}
+        # Render the list again with the latest data
+        return render(request, 'listAllEvents.html',context)
+        #return redirect('listAll')

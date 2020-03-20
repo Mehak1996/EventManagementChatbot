@@ -50,14 +50,19 @@ class MessageFactory:
     @staticmethod
     def get_message(message):
         try:
+            # Create object of SuccessMessage class if message type is "Success"
             if message == "Success":
                 return SuccessMessage()
+            # Create object of FailureMessage class if message type is "Failure"
             if message == "Failure":
                 return FailureMessage()
+            # Create object of InfoMessage class if message type is "Info"
             if message == "Info":
                 return InfoMessage()
+            # Create object of FailureMessageInline class if message type is "InlineFailure"
             if message == "InlineFailure":
                 return FailureMessageInline()
+            # Raise Exception of Message Not Found
             raise AssertionError("Message Not Found")
         except AssertionError as _e:
             print(_e)

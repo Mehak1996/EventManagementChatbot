@@ -185,8 +185,9 @@ class EventRegistrations:
         res = e.save()
         #adding observer pattern
         subject = Observer.ConcreteSubject()
-        observer_a = Observer.ConcreteObserver()
+        observer_a = Observer.checkForRegisterObserver()
         subject.attach(observer_a)
+        subject.request = request
         subject.subject_state = "registered"
         subject.detach(observer_a)
 

@@ -70,7 +70,8 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# ### Settings for Test environment begin ####
+########################################################################
+############# Settings for Test environment begin #####################
 # DEBUG = True
 # DATABASES = {
 #     'default': {
@@ -84,9 +85,12 @@ WSGI_APPLICATION = 'eventApp.wsgi.application'
 # }
 # ALLOWED_HOSTS = ['*']
 
-### Settings for test environment ends ###
+############# Settings for Test environment ends  #####################
+########################################################################
 
-# For Production environment settings begin here
+
+#########################################################################
+############# Settings for Production environment begin #################
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -100,7 +104,8 @@ DATABASES = {
 DEBUG = True
 ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
 
-#### for production environment settings end here
+############# Settings for Production environment ends here #################
+#########################################################################
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
