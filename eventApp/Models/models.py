@@ -7,6 +7,7 @@ from datetime import date, datetime
 class Event(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255, default=None)
+    
     image = models.ImageField(upload_to='', height_field=None, width_field=None, max_length=100, default = '/static/img/abcimage.jpg')
     date = models.DateField(auto_now_add = False, auto_now = False, blank = True)
     description = models.CharField(max_length=500, default=None)
