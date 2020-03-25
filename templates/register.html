@@ -18,10 +18,10 @@ function hideError() {
     <p class="registerInfo" align="center">Please fill in this form to register.</p>
     <form class="register" method="POST" action='registerUser'>
     {% csrf_token %}
-      <input class="username" onkeypress="hideError()" name="username" type="text" align="center" placeholder="Username" >
-      <input class="username" onkeypress="hideError()" name="firstname" type="text" align="center" placeholder="First Name" >
-      <input class="username" onkeypress="hideError()" name="lastname" type="text" align="center" placeholder="Last Name" >
-      <input class="username" onkeypress="hideError()" name="email" type="text" align="center" placeholder="Email" >
+      <input class="username" onkeypress="hideError()" name="username" type="text" align="center" placeholder="Username" value={{uname}} >
+      <input class="username" onkeypress="hideError()" name="firstname" type="text" align="center" placeholder="First Name" value={{fname}} >
+      <input class="username" onkeypress="hideError()" name="lastname" type="text" align="center" placeholder="Last Name" value={{lname}}  >
+      <input class="username" onkeypress="hideError()" name="email" type="text" align="center" placeholder="Email" value={{emailAddress}}  >
       <input class="password" onkeypress="hideError()" name="password" type="password" align="center" placeholder="Password">
       <input class="password" onkeypress="hideError()" name="confirmPassword" type="password" align="center" placeholder="Confirm Password">
       {% for message in messages %}

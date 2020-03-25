@@ -18,7 +18,7 @@ function hideError() {
     <p class="sign" align="center">Login</p>
     <form class="login" method="POST" action='listAllEvents'>
       {% csrf_token %}
-      <input id="user" class="username" onkeypress="hideError()" name="username" type="text" align="center" placeholder="Username">
+      <input id="user" class="username" onkeypress="hideError()" name="username" type="text" align="center" placeholder="Username" value={{username}}>
       <input id="pass" class="password" onkeypress="hideError()" name="password" type="password" align="center" placeholder="Password">
       {% for message in messages %}
       <div id="error" class="alert">{{ message }}</div>

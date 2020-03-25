@@ -28,7 +28,8 @@ class Login:
                 messageFactory = MessageFactory().get_message("InlineFailure")
                 messages.error(request, messageFactory.get_messageText()+"Invalid username or password.")
                 #messages.error(request,'Invalid username or password.')
-                return redirect('login')
+                context = {"username":request.POST.get('username')}
+                return render(request, 'login.html',context)
 
     def register(self,request):
         return render(request, 'register.html')
@@ -41,22 +42,23 @@ class Login:
             emailAddress=request.POST.get('email')
             passwords=request.POST.get('password')
             cpasswords=request.POST.get('confirmPassword')
+            context= { "uname":request.POST.get('username'),"fname":request.POST.get('firstname'),"lname":request.POST.get('lastname'),"emailAddress":request.POST.get('email')}
             if uname == "" or fname == "" or lname == "" or emailAddress == "" or passwords == "" or cpasswords == "" :
                 messageFactory = MessageFactory().get_message("InlineFailure")
                 messages.error(request, messageFactory.get_messageText()+"Please fill in all the fields to register.")
                 #messages.error(request,'Please fill in all the fields to register.')
-                return redirect('register')
+                return render(request, 'register.html',context)
             elif  passwords != cpasswords :
                 messageFactory = MessageFactory().get_message("InlineFailure")
                 messages.error(request,messageFactory.get_messageText()+'Password and Confirm password do not match.')
-                return redirect('register')
+                return render(request, 'register.html',context)
             elif re.search('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$',emailAddress) == None:
                 messageFactory = MessageFactory().get_message("InlineFailure")
                 messages.error(request,messageFactory.get_messageText()+'Please enter a valid email address.')
-                return redirect('register')
+                return render(request, 'register.html',context)
             else :
                 u = User.objects.create_user(username=uname,first_name=fname,last_name=lname,email=emailAddress,password=passwords)
-                u.save();
+                u.save()
                 user = authenticate(username=uname, password=passwords)
                 if user is not None:
                     login(request, user)

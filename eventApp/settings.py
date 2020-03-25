@@ -67,45 +67,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eventApp.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-########################################################################
-############# Settings for Test environment begin #####################
-# DEBUG = True
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'EventApp',
-#         'USER': 'root',
-#         'PASSWORD': 'mehak1996',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-# ALLOWED_HOSTS = ['*']
-
-############# Settings for Test environment ends  #####################
-########################################################################
-
-
-#########################################################################
-############# Settings for Production environment begin #################
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ateh6fzkg9uvzuyp',
-        'USER': 'dv4ecq00f3sx1r4x',
-        'PASSWORD': 'f0ombksyvlr511v6',
-        'HOST': 'pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-    }
-}
-DEBUG = True
-ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
-
-############# Settings for Production environment ends here #################
-#########################################################################
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -149,8 +111,47 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+########################################################################
+############# Settings for Test environment begin #####################
+# DEBUG = True
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'EventApp',
+#         'USER': 'root',
+#         'PASSWORD': 'mehak1996',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+# ALLOWED_HOSTS = ['*']
+
+############# Settings for Test environment ends  #####################
+########################################################################
+
+
+#########################################################################
+############# Settings for Production environment begin #################
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ateh6fzkg9uvzuyp',
+        'USER': 'dv4ecq00f3sx1r4x',
+        'PASSWORD': 'f0ombksyvlr511v6',
+        'HOST': 'pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
+DEBUG = True
+ALLOWED_HOSTS = ['enigmatic-sands-50753.herokuapp.com']
+
+############# Settings for Production environment ends here #################
+#########################################################################
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
@@ -158,9 +159,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'home'
-
-
-
 
 #Rest Framework
 REST_FRAMEWORK = {
