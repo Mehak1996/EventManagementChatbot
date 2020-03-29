@@ -53,7 +53,7 @@ class ChatbotUtility():
 	config_object = ConfigParser()
 	
 
-	chatbot.storage.drop()
+	# chatbot.storage.drop()
 	# chatbot.train('/Users/mehakluthra/Documents/EventManagementChatterbot/eventApp/custom_corpus/mehak.yml')
 
 #####################################################################################################################		
