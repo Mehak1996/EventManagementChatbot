@@ -53,7 +53,7 @@ class ChatbotUtility():
 	config_object = ConfigParser()
 	
 
-	# chatbot.storage.drop()
+	chatbot.storage.drop()
 	# chatbot.train('/Users/mehakluthra/Documents/EventManagementChatterbot/eventApp/custom_corpus/mehak.yml')
 
 #####################################################################################################################		
@@ -85,20 +85,26 @@ class ChatbotUtility():
 			)
 
 	def edit_converstaions(self, oldObj, obj,objStatus):
-		print('inside Edit conversations')   
+		flagSomeChanged = False
 		
 		if (objStatus['address'] == 'Mod') or (objStatus['city'] == 'Mod'):
 			self.edit_dialog_event_location (oldObj , obj)
+			flagSomeChanged = True
 		if (objStatus['eventDate'] == 'Mod') :
 			self.edit_dialog_event_date (oldObj, obj)
+			flagSomeChanged = True
 		if (objStatus['eventType'] == 'Mod') :
 			self.edit_dialog_event_type (oldObj, obj)
+			flagSomeChanged = True
 		if (objStatus['eventTime'] == 'Mod'):
 			self.edit_dialog_event_time (oldObj, obj)
+			flagSomeChanged = True
 		if (objStatus['city'] == 'Mod'):
 			self.edit_dialog_event_city (oldObj, obj)
-		self.edit_dialog_event_description(oldObj, obj)
-
+			flagSomeChanged = True
+		if (objStatus['desc'] == 'Mod') or (flagSomeChanged == True):
+			self.edit_dialog_event_description(oldObj, obj)
+		
 	def formulate_conversations(self, obj):
 		print('inside create conversations')
 		self.create_dialog_event_location (obj.name, obj.city, obj.address)
@@ -144,7 +150,7 @@ class ChatbotUtility():
 			self.train_chatbot_with_question_answer( quesLocationType , ansEventCity )
 
 	def create_dialog_event_description(self, name, city, address, strDate, eventTime, eventType, description):
-		ansEventDescription = 'Event Name is ' + name + '. Location is ' + city + ', ' + address + ' .' + ' Date is ' + strDate.strftime('%m/%d/%Y') + '. ' + 'Time is ' + eventTime + '. ' + 'Event Type is ' + eventType + '. ' + 'Description is ' + description + '.'
+		ansEventDescription = 'Event Name is ' + name.strip() + '. Location is ' + city.strip() + ', ' + address.strip() + ' .' + ' Date is ' + strDate.strftime('%m/%d/%Y').strip() + '. ' + 'Time is ' + eventTime.strip() + '. ' + 'Event Type is ' + eventType.strip() + '. ' + 'Description is ' + description.strip() + '.'
 		
 		for key in self.dialogsQues['description']:
 			quesLocationType = self.dialogsQues['description'].get(key) + ' ' + name + ' ? '
@@ -181,10 +187,19 @@ class ChatbotUtility():
 		self.create_dialog_event_city (obj.name, obj.city)
 
 	def edit_dialog_event_description(self, oldObj, obj):
-		textOldResponse = 'Event Name is ' + oldObj.name + '. Location is ' + oldObj.city + ', ' + oldObj.address + ' .' + ' Date is ' + oldObj.date.strftime('%m/%d/%Y') + '. ' + 'Time is ' + self.convertTimeToStr(oldObj.time) + '. ' + 'Event Type is ' + oldObj.eventType + '. ' + 'Description is ' + oldObj.description + '.'
+		textOldResponse = 'Event Name is ' + oldObj.name.strip() + '. Location is ' + oldObj.city.strip() + ', ' + oldObj.address.strip() + ' .' + ' Date is ' + oldObj.date.strftime('%m/%d/%Y').strip() + '. ' + 'Time is ' + self.convertTimeToStr(oldObj.time).strip() + '. ' + 'Event Type is ' + oldObj.eventType.strip() + '. ' + 'Description is ' + oldObj.description.strip() + '.'
 		self.remove_old_response (textOldResponse)
-			
-		self.create_dialog_event_description (obj.name, obj.city, obj.address, obj.date, obj.time, obj.eventType, obj.description)
+
+		if ( type(obj.time) != str):
+			if obj.time.minute:
+				minutes= str(obj.time.minute).zfill(2)
+			else:
+				minutes = "00"
+			formattedTime = str(obj.time.hour)+":"+ str(minutes)
+			self.create_dialog_event_description (obj.name, obj.city, obj.address, obj.date, formattedTime, obj.eventType, obj.description)
+		else:
+			self.create_dialog_event_description (obj.name, obj.city, obj.address, obj.date, obj.time, obj.eventType, obj.description)
+
 
 	def train_chatbot_with_greetings(self):
 		self.config_object.read("config.ini")

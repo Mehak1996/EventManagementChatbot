@@ -137,13 +137,13 @@ class EventOperations():
                 obj.description = currentDesc
                 objStatus['desc'] = 'Mod'
 
-            #still to be fixed
-            #if request.method == "GET" or request.method == "POST" :
+            # # still to be fixed
+            # if request.method == "GET" or request.method == "POST" :
             #    files = request.FILES["image"]
             #    fs = FileSystemStorage()
             #    fs.save(files.name,files)
             #    obj.image.name = files.name
-            #else :
+            # else :
             #    files = request.FILES["image"]
             #    fs = FileSystemStorage()
             #    fs.save(files.name,files)
@@ -175,7 +175,7 @@ class EventOperations():
 
     def convertTimeToStr(self, timeObj):
         minutes= str(timeObj.minute).zfill(2)
-        formattedTime = str(timeObj.hour)+":"+ str(minutes)+ " "
+        formattedTime = str(timeObj.hour)+":"+ str(minutes)
         return formattedTime
 
 class EventRegistrations:
